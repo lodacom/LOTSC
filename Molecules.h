@@ -9,6 +9,11 @@
 #include <string>
 #include <set>
 
+#include "Graphes.h"
+#include "Liaisons.h"
+
+using namespace std;
+
 #ifndef __LOTS__Molecules__
 #define __LOTS__Molecules__
 

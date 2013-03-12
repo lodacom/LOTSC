@@ -11,7 +11,15 @@
 
 #ifndef __LOTS__Liaisons__
 #define __LOTS__Liaisons__
-
+namespace projet {
+    
+    class Liaisons: {
+    public:
+		Liaisons();
+		virtual ~Liaisons();
+    };
+    
+}
 
 
 #endif /* defined(__LOTS__Liaisons__) */

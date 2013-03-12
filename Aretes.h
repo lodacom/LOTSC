@@ -7,7 +7,6 @@
 #include <iostream>
 #include <string>
 
-#include "Graphes.h"
 #include "Sommets.h"
 
 using namespace std;
@@ -27,7 +26,8 @@ public:
 	Aretes(string);
     Aretes(string,Graphes);
     void setSommets(Sommets,Sommets);
-    Graphes getAretedans();
+    Graphes getArete_dans();
+	void setArete_dans(Graphes);
 	virtual ~Aretes();
 };
 

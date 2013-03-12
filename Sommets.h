@@ -8,9 +8,6 @@
 #include <string>
 #include <set>
 
-#include "Graphes.h"
-#include "Aretes.h"
-
 using namespace std;
 
 #ifndef SOMMETS_H_
@@ -29,6 +26,7 @@ public:
     void addArete(Aretes);
     Graphes getSommet_dans();
     void setSommet_dans(Graphes);
+	string toString();
 	virtual ~Sommets();
 };
 

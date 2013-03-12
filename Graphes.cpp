@@ -9,9 +9,9 @@
 
 namespace projet {
 
-    Graphes::Graphes(string p_nom) {
-        // TODO Auto-generated constructor stub
-        nom_graphe=p_nom;
+    Graphes::Graphes() {
+		num++;
+		nom_graphe="G"+num;
     }
     
     Graphes::Graphes(string p_nom,set<Sommets> p_sommets,set<Aretes> p_aretes){
@@ -20,8 +20,20 @@ namespace projet {
         aretes=p_aretes;
     }
     
+	string Graphes::listeSommets(){
+		if (sommets.size==0){
+			return "aucun sommet";
+		}else{
+			string ret="";
+			for (int i=0;i<sommets.size();i++){
+				ret+=sommets.at(i).toString()+"\n";
+			}
+			return ret;
+		}
+	}
+
     void Graphes::addArete(Aretes p_arete,Sommets p_somm1,Sommets p_somm2){
-        if (p_arete.getArete_dans()==null){
+		if (p_arete.getArete_dans()==NULL){
             p_arete.setArete_dans(this);
         }
         p_arete.setSommets(p_somm1, p_somm2);
@@ -32,15 +44,15 @@ namespace projet {
         addSommet(p_somm2,p_arete);
     }
     
-    void addSommet(Sommets p_sommets,Aretes p_aret) throws ChimereException{
-        if (p_sommets.getSommet_dans()==null){
+    void addSommet(Sommets p_sommets,Aretes p_aret) {
+        if (p_sommets.getSommet_dans()==NULL){
             p_sommets.setSommet_dans(this);
         }
         p_sommets.addArete(p_aret);
         sommets.add(p_sommets);
     }
     
-    void addSommet(Sommets p_sommets) throws ChimereException{
+    void addSommet(Sommets p_sommets) {
         if (p_sommets.getSommet_dans()==null){
             p_sommets.setSommet_dans(this);
         }
@@ -50,18 +62,18 @@ namespace projet {
     Aretes deleteArete(Aretes p_arete){
 		if (aretes.erase(p_arete)){
 			//l'arête ne référence plus le graphe
-			p_arete.setArete_dans(null);
+			p_arete.setArete_dans(NULL);
 			//l'arête ne référence plus ses deux sommets
-			p_arete.setSommets(null, null);
+			p_arete.setSommets(NULL, NULL);
 			return p_arete;
 		}else{
-			return null;
+			return NULL;
 		}
 	}
     
     Sommets deleteSommet(Sommets p_sommet){
 		if (sommets.erase(p_sommet)){
-			p_sommet.setSommet_dans(null);
+			p_sommet.setSommet_dans(NULL);
 			//le sommet ne référence plus le graphe
 			//il faut maintenant supprimer toutes les aretes incidentes
 			//du graphe
@@ -72,7 +84,7 @@ namespace projet {
 			}
 			return p_sommet;
 		}else{
-			return null;
+			return NULL;
 		}
 	}
     

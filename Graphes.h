@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <string>
-#include <set>
+#include <vector>
 
 #include "Aretes.h"
 #include "Sommets.h"
@@ -22,16 +22,21 @@ namespace projet {
 class Graphes {
 public:
 	string nom_graphe;
-	set<Sommets> sommets;
-	set<Aretes> aretes;
+	vector<Sommets> sommets;
+	vector<Aretes> aretes;
+	static int num;
 public:
-	Graphes(string);
+	Graphes();
 	Graphes(string,set<Sommets>,set<Aretes>);
 	string listeSommets();
 	string listeAretes();
 	string toString();
+	void createSommet();
+	void createArete(Sommets,Sommets);
+	void addArete(Aretes);
 	void addArete(Aretes,Sommets,Sommets);
 	void addSommet(Sommets,Aretes);
+	void addSommet(Sommets);
 	Aretes deleteArete(Aretes);
 	Sommets deleteSommet(Sommets);
 	virtual ~Graphes();

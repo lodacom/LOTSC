@@ -10,18 +10,25 @@
 #include <string>
 #include <set>
 
+#include "Sommets.h"
+#include "Graphes.h"
+#include "Molecules.h"
+#include "Liaisons.h"
+
+using namespace std;
+
 #ifndef __LOTS__Atome__
 #define __LOTS__Atome__
 namespace projet {
     
-    class Atome:Sommets {
+    class Atomes:Sommets {
     public:
-        Atome(string);
-        Atome(string,Graphes);
+        Atomes(string);
+        Atomes(string,Graphes);
         void addArete(Liaisons);
         Molecules getSommet_dans();
         void setSommet_dans(Molecules);
-        virtual ~Atome();
+        virtual ~Atomes();
     };
     
 }
