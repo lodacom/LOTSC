@@ -4,12 +4,10 @@
  *  Created on: 18 févr. 2013
  *      Author: Lolo
  */
-
-#include <iostream>
-#include <string>
-#include <vector>
-
 #include "stdafx.h"
+
+class Sommets;
+class Aretes;
 
 using namespace std;
 
@@ -21,13 +19,13 @@ public:
 	string nom_graphe;
 	vector<Sommets*> sommets;
 	vector<Aretes*> aretes;
-	static int num;
+	int num;
 //.......................................................
 	Graphes();
 	Graphes(string,vector<Sommets*>,vector<Aretes*>);
 	string toString();
 	void createSommet();
-	void createArete(Sommets,Sommets);
+	void createArete(Sommets*,Sommets*);
 	void addArete(Aretes);
 	void addArete(Aretes*,Sommets*,Sommets*);
 	void addSommet(Sommets*,Aretes*);
@@ -38,6 +36,9 @@ public:
 protected:
 	string listeSommets();
 	string listeAretes();
+private:
+	int rechercheSommet(Sommets*);
+	int rechercheArete(Aretes*);
 };
 
 #endif /* GRAPHES_H_ */

@@ -1,4 +1,4 @@
-#include <exception>
+#include "stdafx.h"
 
 using namespace std;
 

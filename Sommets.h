@@ -4,10 +4,10 @@
  *  Created on: 18 févr. 2013
  *      Author: Lolo
  */
-#include <iostream>
-#include <string>
-
 #include "stdafx.h"
+
+class Graphes;
+class Aretes;
 
 using namespace std;
 
@@ -19,11 +19,13 @@ public:
     string nom_sommet;
 	Graphes* sommet_dans;
 	vector<Aretes*> aret_incidents;
-	static int num;
-public:
+	int num;
+//.......................................
 	Sommets();
-    Sommets(string,Graphes*);
+    Sommets(Graphes*);
     void addArete(Aretes*);
+	void addArete(Aretes*,Sommets*);
+	void createArete(Sommets*);
     Graphes* getSommet_dans();
     void setSommet_dans(Graphes*);
 	string toString();

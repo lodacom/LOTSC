@@ -2,11 +2,13 @@
 //
 
 #include "stdafx.h"
+using namespace std;
 
-
-int _tmain(int argc, _TCHAR* argv[])
+int main( int argc, const char* argv[] )
 {
-
+	cout << "Hello World!!" << endl;
+	char* entree="";
+	cin >> entree;
 	return 0;
 }
 

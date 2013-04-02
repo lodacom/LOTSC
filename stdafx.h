@@ -7,13 +7,9 @@
 
 #include "targetver.h"
 
-#include <stdio.h>
-#include <tchar.h>
-
-#include "Graphes.h"
-#include "Aretes.h"
-#include "Sommets.h"
-
-
+#include <iostream>
+#include <string>
+#include <vector>
+#include <exception>
 
 // TODO: faites référence ici aux en-têtes supplémentaires nécessaires au programme

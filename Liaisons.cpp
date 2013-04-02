@@ -6,4 +6,10 @@
 //  Copyright (c) 2013 Lolo. All rights reserved.
 //
 
+#include "stdafx.h"
 #include "Liaisons.h"
+#include "Aretes.h"
+
+Liaisons::Liaisons():Aretes(){}
+
+Liaisons::~Liaisons(){}
