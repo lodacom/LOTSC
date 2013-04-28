@@ -20,10 +20,10 @@ public:
 	Graphes* arete_dans;
 	Sommets* somm1;
 	Sommets* somm2;
-	int num;
+	static int num;
 //.............................................
 	Aretes();
-    Aretes(string,Graphes*);
+	Aretes(Graphes*,Sommets*,Sommets*);
     void setSommets(Sommets*,Sommets*);
 	void setSommets(Sommets*);
     Graphes* getArete_dans();

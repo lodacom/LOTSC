@@ -16,9 +16,8 @@ using namespace std;
     
 class Molecules: public Graphes {
 public:
-    string nom_graphe;
-	vector<Atomes> sommets;
-	vector<Liaisons> aretes;
+	vector<Atomes*> sommets;
+	vector<Liaisons*> aretes;
 //................................................
 	Molecules();
 	Molecules(string,vector<Sommets*>,vector<Aretes*>);
@@ -28,10 +27,13 @@ public:
 	void createArete(Atomes*,Atomes*);
     void addArete(Aretes*,Sommets*,Sommets*);
 	void addArete(Liaisons*,Atomes*,Atomes*);
-	void addSommet(Sommets,Aretes);
+	void addSommet(Sommets*,Aretes*);
 	void addSommet(Atomes*);
-	Aretes deleteArete(Aretes);
-    Sommets deleteSommet(Sommets);
+    void addSommet(Sommets*);
+	Aretes* deleteArete(Aretes*);
+    Liaisons* deleteArete(Liaisons*);
+    Sommets* deleteSommet(Sommets*);
+    Atomes* deleteSommet(Atomes*);
 	virtual ~Molecules();
 };
     

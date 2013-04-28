@@ -9,16 +9,22 @@
 #include "Sommets.h"
 #include "Aretes.h"
 
+int Sommets::num;
+
 Sommets::Sommets() {
-    num++;
-	nom_sommet="S"+num;
+    Sommets::num++;
+    stringstream s;
+    s << "S" << num;
+	nom_sommet=s.str();
     sommet_dans=NULL;
 	aret_incidents=vector<Aretes*>();
 }
     
 Sommets::Sommets(Graphes* p_sommet_dans){
     num++;
-	nom_sommet="S"+num;
+	stringstream s;
+    s << "S" << num;
+	nom_sommet=s.str();
     setSommet_dans(p_sommet_dans);
 	aret_incidents=vector<Aretes*>();
 }

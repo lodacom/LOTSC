@@ -5,11 +5,9 @@
 
 #pragma once
 
-#include "targetver.h"
-
 #include <iostream>
 #include <string>
 #include <vector>
 #include <exception>
-
+#include <sstream>
 // TODO: faites référence ici aux en-têtes supplémentaires nécessaires au programme

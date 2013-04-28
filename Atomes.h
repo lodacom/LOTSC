@@ -18,10 +18,11 @@ using namespace std;
 class Atomes: public Sommets {
 public:
     Atomes();
-    Atomes(string,Graphes);
-    void addArete(Liaisons);
-    Molecules getSommet_dans();
-    void setSommet_dans(Molecules);
+    Atomes(Molecules*);
+    void createArete(Sommets*);
+    void createArete(Atomes*);
+    void addArete(Liaisons*);
+    void addArete(Aretes*);
     virtual ~Atomes();
 };
     

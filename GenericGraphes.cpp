@@ -1,60 +1,30 @@
-/*
- * Graphes.cpp
- *
- *  Created on: 18 févr. 2013
- *      Author: Lolo
- */
+//
+//  GenericGraphes.cpp
+//  LOTSC
+//
+//  Created by Olivier Duplouy on 26/04/13.
+//  Copyright (c) 2013 Lolo. All rights reserved.
+//
 
-#include "stdafx.h"
-#include "Graphes.h"
-#include "Sommets.h"
-#include "Aretes.h"
+#include "GenericGraphes.h"
 
-int Graphes::num;
 
-Graphes::Graphes() {
-    Graphes::num++;
+template <class G,class S,class A>
+GenericGraphes<G, S, A>::GenericGraphes(){
+    GenericGraphes::num++;
     stringstream s;
     s << "G" << num;
 	nom_graphe=s.str();
 }
-    
-Graphes::Graphes(string p_nom,vector<Sommets*> p_sommets,vector<Aretes*> p_aretes){
-    nom_graphe=p_nom;
-    sommets=p_sommets;
-    aretes=p_aretes;
-}
 
-string Graphes::toString(){
+template <class G,class S,class A>
+string GenericGraphes<G, S, A>::toString(){
 	return "Le graphe "+nom_graphe+" est composé des sommets:\n"
-		+listeSommets()+"et des arêtes:\n"+listeAretes();
+    +listeSommets()+"et des arêtes:\n"+listeAretes();
 }
 
-string Graphes::descriptionGraphe(){
-    string ret="";
-	if (sommets.size()==0){
-		return "Le graphe est vide";
-	}else{
-		for (int i=0;i<sommets.size();i++){
-			ret+=sommets.at(i)->toString()+" est relié à:\n"+sommetLinkedTo(sommets.at(i));
-		}
-	}
-    return ret;
-}
-
-string Graphes::sommetLinkedTo(Sommets * p_sommet){
-    string ret="";
-    for (int i=0;i<p_sommet->aret_incidents.size();i++){
-        if (p_sommet->aret_incidents.at(i)->somm1->nom_sommet!=p_sommet->nom_sommet){
-            ret+=p_sommet->aret_incidents.at(i)->somm1->toString()+"\n";
-        }else{
-            ret+=p_sommet->aret_incidents.at(i)->somm2->toString()+"\n";
-        }
-    }
-    return ret;
-}
-
-string Graphes::listeSommets(){
+template <class G,class S,class A>
+string GenericGraphes<G, S, A>::listeSommets(){
     string ret="";
 	if (sommets.size()==0){
 		return "aucun sommet";
@@ -66,29 +36,47 @@ string Graphes::listeSommets(){
 	}
 }
 
-string Graphes::listeAretes(){
+template <class G,class S,class A>
+string GenericGraphes<G, S, A>::listeAretes(){
     string ret="";
-		if (aretes.size()==0){
-			return "aucune arêtes";
-		}else{
-			for (int i=0;i<aretes.size();i++){
-				ret+=aretes.at(i)->toString()+"\n";
-			}
-			return ret;
+    if (aretes.size()==0){
+        return "aucune arêtes";
+    }else{
+        for (int i=0;i<aretes.size();i++){
+            ret+=aretes.at(i)->toString()+"\n";
+        }
+        return ret;
+    }
+}
+
+template <class G,class S,class A>
+string GenericGraphes<G, S, A>::descriptionGraphe(){
+    string ret="";
+	if (sommets.size()==0){
+		return "Le graphe est vide";
+	}else{
+		for (int i=0;i<sommets.size();i++){
+			ret+=sommets.at(i)->toString()+" est relié à:\n"+sommetLinkedTo(sommets.at(i));
 		}
 	}
-
-void Graphes::createSommet(){
-	Sommets* s=new Sommets();
-	addSommet(s);
+    return ret;
 }
 
-void Graphes::createArete(Sommets* p_somm1,Sommets* p_somm2){
-	Aretes* a=new Aretes();
-	addArete(a,p_somm1,p_somm2);
+template <class G,class S,class A>
+string GenericGraphes<G, S, A>::sommetLinkedTo(S p_sommet){
+    string ret="";
+    for (int i=0;i<p_sommet->aret_incidents.size();i++){
+        if (p_sommet->aret_incidents.at(i)->somm1->nom_sommet!=p_sommet->nom_sommet){
+            ret+=p_sommet->aret_incidents.at(i)->somm1->toString()+"\n";
+        }else{
+            ret+=p_sommet->aret_incidents.at(i)->somm2->toString()+"\n";
+        }
+    }
+    return ret;
 }
 
-void Graphes::addArete(Aretes* p_arete){
+template <class G,class S,class A>
+void GenericGraphes<G, S, A>::addArete(A p_arete){
 	if (p_arete->getArete_dans()==NULL){
 		p_arete->setArete_dans(this);
 	}
@@ -103,7 +91,8 @@ void Graphes::addArete(Aretes* p_arete){
     }
 }
 
-void Graphes::addArete(Aretes* p_arete,Sommets* p_somm1,Sommets* p_somm2){
+template <class G,class S,class A>
+void GenericGraphes<G, S, A>::addArete(A p_arete,S p_somm1,S p_somm2){
 	if (p_arete->getArete_dans()==NULL){
         p_arete->setArete_dans(this);
     }
@@ -123,22 +112,25 @@ void Graphes::addArete(Aretes* p_arete,Sommets* p_somm1,Sommets* p_somm2){
     }
 }
 
-void Graphes::addSommet(Sommets* p_sommets,Aretes* p_aret) {
+template <class G,class S,class A>
+void GenericGraphes<G, S, A>::addSommet(S p_sommets,A p_aret) {
     if (p_sommets->getSommet_dans()==NULL){
         p_sommets->setSommet_dans(this);
     }
     p_sommets->addArete(p_aret);
 	sommets.push_back(p_sommets);
 }
-    
-void Graphes::addSommet(Sommets* p_sommets) {
+
+template <class G,class S,class A>
+void GenericGraphes<G, S, A>::addSommet(S p_sommets) {
 	if (p_sommets->getSommet_dans()==NULL){
         p_sommets->setSommet_dans(this);
     }
     sommets.push_back(p_sommets);
 }
-    
-Aretes* Graphes::deleteArete(Aretes* p_arete){
+
+template <class G,class S,class A>
+A GenericGraphes<G, S, A>::deleteArete(A p_arete){
 	int rech=rechercheArete(p_arete);
 	if (rech!=-1){
 		aretes.erase(aretes.begin()+rech);
@@ -151,8 +143,29 @@ Aretes* Graphes::deleteArete(Aretes* p_arete){
 		return NULL;
 	}
 }
- 
-int Graphes::rechercheArete(Aretes* p_arete){
+
+template <class G,class S,class A>
+S GenericGraphes<G, S, A>::deleteSommet(S p_sommet){
+	int rech=rechercheSommet(p_sommet);
+	if (rech!=-1){
+		sommets.erase(sommets.begin()+rech);
+		p_sommet->setSommet_dans(NULL);
+		//le sommet ne référence plus le graphe
+		//il faut maintenant supprimer toutes les aretes incidentes
+		//du graphe
+		typename vector<A>::iterator i = p_sommet->aret_incidents.begin();
+		while (i!=p_sommet->aret_incidents.end()){
+			deleteArete(*i);
+            i++;
+		}
+		return p_sommet;
+	}else{
+		return NULL;
+	}
+}
+
+template <class G,class S,class A>
+int GenericGraphes<G, S, A>::rechercheArete(A p_arete){
 	int i=0;
 	while (i<aretes.size() && strcmp(aretes.at(i)->nom_arete.c_str(),p_arete->nom_arete.c_str())!=0){
 		i++;
@@ -164,26 +177,8 @@ int Graphes::rechercheArete(Aretes* p_arete){
 	}
 }
 
-Sommets* Graphes::deleteSommet(Sommets* p_sommet){
-	int rech=rechercheSommet(p_sommet);
-	if (rech!=-1){
-		sommets.erase(sommets.begin()+rech);
-		p_sommet->setSommet_dans(NULL);
-		//le sommet ne référence plus le graphe
-		//il faut maintenant supprimer toutes les aretes incidentes
-		//du graphe
-		vector<Aretes*>::iterator i = p_sommet->aret_incidents.begin();
-		while (i!=p_sommet->aret_incidents.end()){
-			deleteArete(*i);
-            i++;
-		}
-		return p_sommet;
-	}else{
-		return NULL;
-	}
-}
- 
-int Graphes::rechercheSommet(Sommets* p_sommet){
+template <class G,class S,class A>
+int GenericGraphes<G, S, A>::rechercheSommet(S p_sommet){
 	int i=0;
 	while (i<sommets.size() && strcmp(sommets.at(i)->nom_sommet.c_str(),p_sommet->nom_sommet.c_str())!=0){
 		i++;
@@ -195,7 +190,8 @@ int Graphes::rechercheSommet(Sommets* p_sommet){
 	}
 }
 
-bool Graphes::isAlreadyAdded(Aretes * p_arete){
+template <class G,class S,class A>
+bool GenericGraphes<G, S, A>::isAlreadyAdded(A p_arete){
     int i=0;
     while (i<aretes.size() && aretes.at(i)->nom_arete!=p_arete->nom_arete){
         i++;
@@ -203,7 +199,8 @@ bool Graphes::isAlreadyAdded(Aretes * p_arete){
     return (i<aretes.size());
 }
 
-bool Graphes::isAlreadyAdded(Sommets * p_sommet){
+template <class G,class S,class A>
+bool GenericGraphes<G, S, A>::isAlreadyAdded(S p_sommet){
     int i=0;
     while (i<sommets.size() && sommets.at(i)->nom_sommet!=p_sommet->nom_sommet){
         i++;
@@ -211,6 +208,7 @@ bool Graphes::isAlreadyAdded(Sommets * p_sommet){
     return (i<sommets.size());
 }
 
-Graphes::~Graphes() {
+template <class G,class S,class A>
+GenericGraphes<G, S, A>::~GenericGraphes() {
     // TODO Auto-generated destructor stub
 }

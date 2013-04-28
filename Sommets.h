@@ -19,7 +19,7 @@ public:
     string nom_sommet;
 	Graphes* sommet_dans;
 	vector<Aretes*> aret_incidents;
-	int num;
+	static int num;
 //.......................................
 	Sommets();
     Sommets(Graphes*);

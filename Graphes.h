@@ -19,14 +19,15 @@ public:
 	string nom_graphe;
 	vector<Sommets*> sommets;
 	vector<Aretes*> aretes;
-	int num;
+	static int num;
 //.......................................................
 	Graphes();
 	Graphes(string,vector<Sommets*>,vector<Aretes*>);
 	string toString();
+    string descriptionGraphe();
 	void createSommet();
 	void createArete(Sommets*,Sommets*);
-	void addArete(Aretes);
+	void addArete(Aretes*);
 	void addArete(Aretes*,Sommets*,Sommets*);
 	void addSommet(Sommets*,Aretes*);
 	void addSommet(Sommets*);
@@ -39,6 +40,9 @@ protected:
 private:
 	int rechercheSommet(Sommets*);
 	int rechercheArete(Aretes*);
+    bool isAlreadyAdded(Aretes*);
+    bool isAlreadyAdded(Sommets*);
+    string sommetLinkedTo(Sommets*);
 };
 
 #endif /* GRAPHES_H_ */

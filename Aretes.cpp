@@ -9,20 +9,29 @@
 #include "Graphes.h"
 #include "Sommets.h"
 
+int Aretes::num;
 
 Aretes::Aretes(){
-    num++;
-	nom_arete="A"+num;
+    Aretes::num++;
+    stringstream s;
+    s << "A" << num;
+	nom_arete=s.str();
 	arete_dans=NULL;
     somm1=NULL;
     somm2=NULL;
 }
     
-Aretes::Aretes(string p_nom_arete,Graphes* p_arete_dans){
-    nom_arete=p_nom_arete;
+Aretes::Aretes(Graphes* p_arete_dans,Sommets* p_somm1,Sommets* p_somm2){
+    num++;
+	stringstream s;
+    s << "A" << num;
+	nom_arete=s.str();
     arete_dans=p_arete_dans;
-	somm1=NULL;
-	somm2=NULL;
+	somm1=p_somm1;
+	somm2=p_somm2;
+    somm1->setSommet_dans(p_arete_dans);
+    somm2->setSommet_dans(p_arete_dans);
+    somm1->addArete(this, somm2);
 }
     
 void Aretes::setSommets(Sommets* p_somm1,Sommets* p_somm2){
