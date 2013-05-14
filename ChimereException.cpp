@@ -7,7 +7,7 @@ ChimereException::ChimereException()
 }
 
 const char * ChimereException::what() const throw(){
-	return "Erreur de malheur!!!";
+	return "Attention vous essayer de construire une chimere!!!";
 }
 
 ChimereException::~ChimereException()

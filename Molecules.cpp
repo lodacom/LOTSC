@@ -17,7 +17,7 @@ Molecules::Molecules():Graphes(){}
 Molecules::Molecules(string p_nom,vector<Sommets*> p_sommets,vector<Aretes*> p_aretes):Graphes(p_nom,p_sommets,p_aretes){}
 
 string Molecules::toString(){
-	return "La molécule "+Graphes::nom_graphe+" est composé des atomes:"+
+	return "La molecule "+Graphes::nom_graphe+" est compose des atomes:"+
 		Graphes::listeSommets()+"et des liaisons: "+Graphes::listeAretes();	
 }
 
@@ -33,9 +33,9 @@ void Molecules::createArete(Atomes* p_somm1,Atomes* p_somm2){
 
 void Molecules::createArete(Sommets * p_somm1, Sommets * p_somm2){
     Liaisons* l=new Liaisons();
-    string typeS1=typeid(p_somm1).name();
-    string typeS2=typeid(p_somm2).name();
-    if (typeS1.find("Atomes") && typeS2.find("Atomes")){
+    string typeS1=typeid(*p_somm1).name();
+    string typeS2=typeid(*p_somm2).name();
+    if (typeS1.find("Atomes")==1 && typeS2.find("Atomes")==1){
         addArete(l,p_somm1, p_somm2);
     }else{
         throw new ChimereException();
@@ -47,12 +47,12 @@ void Molecules::addArete(Liaisons* p_aret,Atomes* p_somm1,Atomes* p_somm2){
 }
 
 void Molecules::addArete(Aretes* p_aret,Sommets* p_somm1,Sommets* p_somm2){
-    string typeArete=typeid(p_aret).name();
-    string typeS1=typeid(p_somm1).name();
-    string typeS2=typeid(p_somm2).name();
-    if (typeArete.find("Liaisons") &&
-        typeS1.find("Atomes") &&
-        typeS2.find("Atomes")){
+    string typeArete=typeid(*p_aret).name();
+    string typeS1=typeid(*p_somm1).name();
+    string typeS2=typeid(*p_somm2).name();
+    if (typeArete.find("Liaisons")==1 &&
+        typeS1.find("Atomes")==1 &&
+        typeS2.find("Atomes")==1){
         Graphes::addArete(dynamic_cast<Aretes*>(p_aret),dynamic_cast<Sommets*>(p_somm1), dynamic_cast<Sommets*>(p_somm2));
     }else{
         throw new ChimereException();
@@ -64,8 +64,8 @@ void Molecules::addSommet(Atomes* p_somm){
 }
 
 void Molecules::addSommet(Sommets* p_somm){
-    string typeS=typeid(p_somm).name();
-    if (typeS.find("Atomes")){
+    string typeS=typeid(*p_somm).name();
+    if (typeS.find("Atomes")==1){
         Graphes::addSommet(dynamic_cast<Sommets*>(p_somm));
     }else{
         throw new ChimereException();
@@ -73,8 +73,8 @@ void Molecules::addSommet(Sommets* p_somm){
 }
 
 Aretes* Molecules::deleteArete(Aretes * p_aret){
-    string typeA=typeid(p_aret).name();
-    if (typeA.find("Liaisons")){
+    string typeA=typeid(*p_aret).name();
+    if (typeA.find("Liaisons")==1){
         return Graphes::deleteArete(dynamic_cast<Liaisons*>(p_aret));
     }else{
         return NULL;
@@ -90,8 +90,8 @@ Atomes* Molecules::deleteSommet(Atomes * p_somm){
 }
 
 Sommets* Molecules::deleteSommet(Sommets* p_somm){
-    string typeS=typeid(p_somm).name();
-    if (typeS.find("Atomes")){
+    string typeS=typeid(*p_somm).name();
+    if (typeS.find("Atomes")==1){
         return Graphes::deleteSommet(dynamic_cast<Sommets*>(p_somm));
     }else{
         return NULL;

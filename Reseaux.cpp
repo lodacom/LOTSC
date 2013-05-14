@@ -32,9 +32,9 @@ void Reseaux::createArete(Noeuds* p_somm1,Noeuds* p_somm2){
 
 void Reseaux::createArete(Sommets * p_somm1, Sommets * p_somm2){
     Liens* l=new Liens();
-    string typeS1=typeid(p_somm1).name();
-    string typeS2=typeid(p_somm2).name();
-    if (typeS1.find("Noeuds") && typeS2.find("Noeuds")){
+    string typeS1=typeid(*p_somm1).name();
+    string typeS2=typeid(*p_somm2).name();
+    if (typeS1.find("Noeuds")==1 && typeS2.find("Noeuds")==1){
         addArete(l,p_somm1, p_somm2);
     }else{
         throw new ChimereException();
@@ -46,12 +46,12 @@ void Reseaux::addArete(Liens* p_aret,Noeuds* p_somm1,Noeuds* p_somm2){
 }
 
 void Reseaux::addArete(Aretes* p_aret,Sommets* p_somm1,Sommets* p_somm2){
-    string typeArete=typeid(p_aret).name();
-    string typeS1=typeid(p_somm1).name();
-    string typeS2=typeid(p_somm2).name();
-    if (typeArete.find("Liens") &&
-        typeS1.find("Noeuds") &&
-        typeS2.find("Noeuds")){
+    string typeArete=typeid(*p_aret).name();
+    string typeS1=typeid(*p_somm1).name();
+    string typeS2=typeid(*p_somm2).name();
+    if (typeArete.find("Liens")==1 &&
+        typeS1.find("Noeuds")==1 &&
+        typeS2.find("Noeuds")==1){
         Graphes::addArete(dynamic_cast<Aretes*>(p_aret),dynamic_cast<Sommets*>(p_somm1), dynamic_cast<Sommets*>(p_somm2));
     }else{
         throw new ChimereException();
@@ -63,8 +63,8 @@ void Reseaux::addSommet(Noeuds* p_somm){
 }
 
 void Reseaux::addSommet(Sommets* p_somm){
-    string typeS=typeid(p_somm).name();
-    if (typeS.find("Noeuds")){
+    string typeS=typeid(*p_somm).name();
+    if (typeS.find("Noeuds")==1){
         Graphes::addSommet(dynamic_cast<Sommets*>(p_somm));
     }else{
         throw new ChimereException();
@@ -72,8 +72,8 @@ void Reseaux::addSommet(Sommets* p_somm){
 }
 
 Aretes* Reseaux::deleteArete(Aretes * p_aret){
-    string typeA=typeid(p_aret).name();
-    if (typeA.find("Liens")){
+    string typeA=typeid(*p_aret).name();
+    if (typeA.find("Liens")==1){
         return Graphes::deleteArete(dynamic_cast<Liens*>(p_aret));
     }else{
         return NULL;
@@ -89,8 +89,8 @@ Noeuds* Reseaux::deleteSommet(Noeuds * p_somm){
 }
 
 Sommets* Reseaux::deleteSommet(Sommets* p_somm){
-    string typeS=typeid(p_somm).name();
-    if (typeS.find("Noeuds")){
+    string typeS=typeid(*p_somm).name();
+    if (typeS.find("Noeuds")==1){
         return Graphes::deleteSommet(dynamic_cast<Sommets*>(p_somm));
     }else{
         return NULL;

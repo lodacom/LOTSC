@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Lolo. All rights reserved.
 //
 #include "stdafx.h"
-
 using namespace std;
 
 #ifndef __LOTSC__GenericAretes__

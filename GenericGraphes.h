@@ -23,8 +23,8 @@ public:
     GenericGraphes();
     string toString();
     string descriptionGraphe();
-	virtual void createSommet()=0;
-	virtual void createArete(S,S)=0;
+    virtual void createSommet();
+    virtual void createArete(S,S);
 	void addArete(A);
 	void addArete(A,S,S);
 	void addSommet(S,A);

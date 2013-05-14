@@ -18,8 +18,8 @@ Atomes::Atomes(Molecules* p_graphe):Sommets(p_graphe){}
 void Atomes::createArete(Sommets * p_somm2){
     Liaisons* l=new Liaisons();
     addArete(l);
-    string typeS2=typeid(p_somm2).name();
-    if (typeS2.find("Atomes")){
+    string typeS2=typeid(*p_somm2).name();
+    if (typeS2.find("Atomes")==1){
         l->setSommets(this, p_somm2);
         p_somm2->addArete(l);
     }else{
@@ -40,8 +40,8 @@ void Atomes::addArete(Liaisons * p_aret){
 }
 
 void Atomes::addArete(Aretes * p_aret){
-    string typeA=typeid(p_aret).name();
-    if (typeA.find("Liaisons")){
+    string typeA=typeid(*p_aret).name();
+    if (typeA.find("Liaisons")==1){
         addArete(dynamic_cast<Liaisons*>(p_aret));
     }else{
         throw new ChimereException();

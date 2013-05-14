@@ -17,8 +17,8 @@ Noeuds::Noeuds(Reseaux* p_graphe):Sommets(p_graphe){}
 void Noeuds::createArete(Sommets * p_somm2){
     Liens* l=new Liens();
     addArete(l);
-    string typeS2=typeid(p_somm2).name();
-    if (typeS2.find("Atomes")){
+    string typeS2=typeid(*p_somm2).name();
+    if (typeS2.find("Atomes")==1){
         l->setSommets(this, p_somm2);
         p_somm2->addArete(l);
     }else{
@@ -39,8 +39,8 @@ void Noeuds::addArete(Liens * p_aret){
 }
 
 void Noeuds::addArete(Aretes * p_aret){
-    string typeA=typeid(p_aret).name();
-    if (typeA.find("Liens")){
+    string typeA=typeid(*p_aret).name();
+    if (typeA.find("Liens")==1){
         addArete(dynamic_cast<Liens*>(p_aret));
     }else{
         throw new ChimereException();

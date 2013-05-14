@@ -24,7 +24,7 @@ public:
     GenericSommets(G);
     void addArete(A);
 	void addArete(A,S);
-	void createArete(S)=0;
+    virtual void createArete(S);
     G getSommet_dans();
     void setSommet_dans(G);
 	string toString();

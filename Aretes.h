@@ -24,7 +24,8 @@ public:
 //.............................................
 	Aretes();
 	Aretes(Graphes*,Sommets*,Sommets*);
-    void setSommets(Sommets*,Sommets*);
+    void setSommets(Sommets*,Sommets*
+                    );
 	void setSommets(Sommets*);
     Graphes* getArete_dans();
 	void setArete_dans(Graphes*);

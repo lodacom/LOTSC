@@ -5,8 +5,6 @@
 //  Created by Olivier Duplouy on 22/04/13.
 //  Copyright (c) 2013 Lolo. All rights reserved.
 //
-
-// LOTSC.cpp†: dÈfinit le point d'entrÈe pour l'application console.
 //
 
 #include "stdafx.h"
@@ -16,6 +14,7 @@
 #include "Molecules.h"
 #include "Liaisons.h"
 #include "Atomes.h"
+#include "ChimereException.h"
 
 using namespace std;
 
@@ -25,17 +24,24 @@ int main( int argc, const char* argv[] )
 	Sommets* s1=new Sommets();
 	Sommets* s2=new Sommets();
     Sommets* s3=new Sommets();
-	Aretes* a1=new Aretes(g,s1,s2);
-    Aretes* a2=new Aretes(g,s2,s3);
-	g->addArete(a1);
-    g->addArete(a2);
+	Aretes* a1=new Aretes();
+    Aretes* a2=new Aretes();
+	g->addArete(a1,s1,s2);
+    g->addArete(a2,s2,s3);
 	cout << g->toString() << endl;
     cout << g->descriptionGraphe() << endl;
-    Molecules* m=new Molecules();
-    s1=new Atomes();
-    s2=new Atomes();
-    a1=new Liaisons();
-    m->addArete(a1, s1, s2);
     
+    Molecules* m=new Molecules();
+    Sommets* s4=new Atomes();
+    Sommets* s5=new Atomes();
+    Aretes* a3=new Liaisons();
+    try {
+        m->addArete(a3, s4, s5);
+    } catch (ChimereException ce) {
+        cout << ce.what() << endl;
+    }
+    cout << "......................................................" << endl;
+    cout << m->toString() << endl;
+    cout << m->descriptionGraphe() << endl;
 	return 0;
 }
