@@ -5,9 +5,6 @@
 //  Created by Olivier Duplouy on 27/04/13.
 //  Copyright (c) 2013 Lolo. All rights reserved.
 //
-
-#include "GenericAretes.h"
-
 template <class G,class S,class A>
 GenericAretes<G,S,A>::GenericAretes(){
     GenericAretes::num++;
@@ -20,7 +17,7 @@ GenericAretes<G,S,A>::GenericAretes(){
 }
 
 template <class G,class S,class A>
-GenericAretes<G,S,A>::GenericAretes(G p_arete_dans,S p_somm1,S p_somm2){
+GenericAretes<G,S,A>::GenericAretes(G* p_arete_dans,S* p_somm1,S* p_somm2){
     num++;
 	stringstream s;
     s << "A" << num;
@@ -34,13 +31,13 @@ GenericAretes<G,S,A>::GenericAretes(G p_arete_dans,S p_somm1,S p_somm2){
 }
 
 template <class G,class S,class A>
-void GenericAretes<G,S,A>::setSommets(S p_somm1,S p_somm2){
+void GenericAretes<G,S,A>::setSommets(S* p_somm1,S* p_somm2){
     somm1=p_somm1;
     somm2=p_somm2;
 }
 
 template <class G,class S,class A>
-void GenericAretes<G,S,A>::setSommets(S p_somm){
+void GenericAretes<G,S,A>::setSommets(S* p_somm){
 	if (somm1==NULL){
 		somm1=p_somm;
 	}else{
@@ -49,12 +46,12 @@ void GenericAretes<G,S,A>::setSommets(S p_somm){
 }
 
 template <class G,class S,class A>
-G GenericAretes<G,S,A>::getArete_dans() {
+G* GenericAretes<G,S,A>::getArete_dans() {
     return arete_dans;
 }
 
 template <class G,class S,class A>
-void GenericAretes<G,S,A>::setArete_dans(G arete_dans) {
+void GenericAretes<G,S,A>::setArete_dans(G* arete_dans) {
 	arete_dans = arete_dans;
 }
 

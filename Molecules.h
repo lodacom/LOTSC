@@ -16,11 +16,9 @@ using namespace std;
     
 class Molecules: public Graphes {
 public:
-	vector<Atomes*> sommets;
-	vector<Liaisons*> aretes;
+
 //................................................
 	Molecules();
-	Molecules(string,vector<Sommets*>,vector<Aretes*>);
     string toString();
 	void createSommet();
 	void createArete(Sommets*,Sommets*);

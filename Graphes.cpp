@@ -18,12 +18,6 @@ Graphes::Graphes() {
     s << "G" << num;
 	nom_graphe=s.str();
 }
-    
-Graphes::Graphes(string p_nom,vector<Sommets*> p_sommets,vector<Aretes*> p_aretes){
-    nom_graphe=p_nom;
-    sommets=p_sommets;
-    aretes=p_aretes;
-}
 
 string Graphes::toString(){
 	return "Le graphe "+nom_graphe+" est composé des sommets:\n"
@@ -35,8 +29,8 @@ string Graphes::descriptionGraphe(){
 	if (sommets.size()==0){
 		return "Le graphe est vide";
 	}else{
-		for (int i=0;i<sommets.size();i++){
-			ret+=sommets.at(i)->toString()+" est relié à:\n"+sommetLinkedTo(sommets.at(i));
+		for (itS=sommets.begin(); itS!=sommets.end();itS++){
+			ret+=itS.operator*()->toString()+" est relié à:\n"+sommetLinkedTo(*itS);
 		}
 	}
     return ret;
@@ -44,11 +38,11 @@ string Graphes::descriptionGraphe(){
 
 string Graphes::sommetLinkedTo(Sommets * p_sommet){
     string ret="";
-    for (int i=0;i<p_sommet->aret_incidents.size();i++){
-        if (p_sommet->aret_incidents.at(i)->somm1->nom_sommet!=p_sommet->nom_sommet){
-            ret+=p_sommet->aret_incidents.at(i)->somm1->toString()+"\n";
+    for (p_sommet->itAS=p_sommet->aret_incidents.begin(); p_sommet->itAS!=p_sommet->aret_incidents.end();p_sommet->itAS++){
+        if (p_sommet->itAS.operator*()->somm1->nom_sommet!=p_sommet->nom_sommet){
+            ret+=p_sommet->itAS.operator*()->somm1->toString()+"\n";
         }else{
-            ret+=p_sommet->aret_incidents.at(i)->somm2->toString()+"\n";
+            ret+=p_sommet->itAS.operator*()->somm2->toString()+"\n";
         }
     }
     return ret;
@@ -59,8 +53,8 @@ string Graphes::listeSommets(){
 	if (sommets.size()==0){
 		return "aucun sommet";
 	}else{
-		for (int i=0;i<sommets.size();i++){
-			ret+=sommets.at(i)->toString()+"\n";
+		for (itS=sommets.begin(); itS!=sommets.end();itS++){
+			ret+=itS.operator*()->toString()+"\n";
 		}
 		return ret;
 	}
@@ -71,8 +65,8 @@ string Graphes::listeAretes(){
 		if (aretes.size()==0){
 			return "aucune arêtes";
 		}else{
-			for (int i=0;i<aretes.size();i++){
-				ret+=aretes.at(i)->toString()+"\n";
+			for (itA=aretes.begin(); itA!=aretes.end();itA++){
+				ret+=itA.operator*()->toString()+"\n";
 			}
 			return ret;
 		}
@@ -89,59 +83,55 @@ void Graphes::createArete(Sommets* p_somm1,Sommets* p_somm2){
 }
 
 void Graphes::addArete(Aretes* p_arete){
-	if (p_arete->getArete_dans()==NULL){
+	if (p_arete->getArete_dans()==NULL ||
+        aretes.find(p_arete)==aretes.end()){
 		p_arete->setArete_dans(this);
+        
+        aretes.insert(p_arete);
+        sommets.insert(p_arete->somm1);
+        sommets.insert(p_arete->somm2);
 	}
-    if (!isAlreadyAdded(p_arete)){
-        aretes.push_back(p_arete);
-        if (!isAlreadyAdded(p_arete->somm1)){
-            sommets.push_back(p_arete->somm1);
-        }
-        if (!isAlreadyAdded(p_arete->somm2)){
-            sommets.push_back(p_arete->somm2);
-        }
-    }
 }
 
 void Graphes::addArete(Aretes* p_arete,Sommets* p_somm1,Sommets* p_somm2){
-	if (p_arete->getArete_dans()==NULL){
+	if (p_arete->getArete_dans()==NULL ||
+        aretes.find(p_arete)==aretes.end()){
         p_arete->setArete_dans(this);
-    }
-    p_somm1->setSommet_dans(this);
-	p_somm2->setSommet_dans(this);
-	p_somm1->addArete(p_arete);
-	p_somm2->addArete(p_arete);
-    p_arete->setSommets(p_somm1, p_somm2);
-    //on ajoute l'arête dans le graphe
-    aretes.push_back(p_arete);
-    //on ajoute les sommets dans le graphe
-    if (!isAlreadyAdded(p_arete->somm1)){
-        sommets.push_back(p_somm1);
-    }
-    if (!isAlreadyAdded(p_arete->somm2)){
-        sommets.push_back(p_somm2);
+        
+        p_somm1->setSommet_dans(this);
+        p_somm2->setSommet_dans(this);
+        p_somm1->addArete(p_arete);
+        p_somm2->addArete(p_arete);
+        p_arete->setSommets(p_somm1, p_somm2);
+        //on ajoute l'arête dans le graphe
+        aretes.insert(p_arete);
+        //on ajoute les sommets dans le graphe
+        sommets.insert(p_somm1);
+        sommets.insert(p_somm2);
     }
 }
 
 void Graphes::addSommet(Sommets* p_sommets,Aretes* p_aret) {
-    if (p_sommets->getSommet_dans()==NULL){
+    if (p_sommets->getSommet_dans()==NULL ||
+        sommets.find(p_sommets)==sommets.end()){
         p_sommets->setSommet_dans(this);
+        
+        p_sommets->addArete(p_aret);
+        sommets.insert(p_sommets);
     }
-    p_sommets->addArete(p_aret);
-	sommets.push_back(p_sommets);
 }
     
 void Graphes::addSommet(Sommets* p_sommets) {
-	if (p_sommets->getSommet_dans()==NULL){
+	if (p_sommets->getSommet_dans()==NULL ||
+        sommets.find(p_sommets)==sommets.end()){
         p_sommets->setSommet_dans(this);
+        
+        sommets.insert(p_sommets);
     }
-    sommets.push_back(p_sommets);
 }
     
 Aretes* Graphes::deleteArete(Aretes* p_arete){
-	int rech=rechercheArete(p_arete);
-	if (rech!=-1){
-		aretes.erase(aretes.begin()+rech);
+	if (aretes.erase(p_arete)==1){
 		//l'arête ne référence plus le graphe
 		p_arete->setArete_dans(NULL);
 		//l'arête ne référence plus ses deux sommets
@@ -151,64 +141,21 @@ Aretes* Graphes::deleteArete(Aretes* p_arete){
 		return NULL;
 	}
 }
- 
-int Graphes::rechercheArete(Aretes* p_arete){
-	int i=0;
-	while (i<aretes.size() && strcmp(aretes.at(i)->nom_arete.c_str(),p_arete->nom_arete.c_str())!=0){
-		i++;
-	}
-	if (i<aretes.size()){
-		return i;
-	}else{
-		return -1;
-	}
-}
 
 Sommets* Graphes::deleteSommet(Sommets* p_sommet){
-	int rech=rechercheSommet(p_sommet);
-	if (rech!=-1){
-		sommets.erase(sommets.begin()+rech);
+	if (sommets.erase(p_sommet)==1){
 		p_sommet->setSommet_dans(NULL);
 		//le sommet ne référence plus le graphe
 		//il faut maintenant supprimer toutes les aretes incidentes
 		//du graphe
-		vector<Aretes*>::iterator i = p_sommet->aret_incidents.begin();
-		while (i!=p_sommet->aret_incidents.end()){
-			deleteArete(*i);
-            i++;
+		while (p_sommet->itAS!=p_sommet->aret_incidents.end()){
+			deleteArete(*p_sommet->itAS);
+            p_sommet->itAS++;
 		}
 		return p_sommet;
 	}else{
 		return NULL;
 	}
-}
- 
-int Graphes::rechercheSommet(Sommets* p_sommet){
-	int i=0;
-	while (i<sommets.size() && strcmp(sommets.at(i)->nom_sommet.c_str(),p_sommet->nom_sommet.c_str())!=0){
-		i++;
-	}
-	if (i<sommets.size()){
-		return i;
-	}else{
-		return -1;
-	}
-}
-
-bool Graphes::isAlreadyAdded(Aretes * p_arete){
-    int i=0;
-    while (i<aretes.size() && aretes.at(i)->nom_arete!=p_arete->nom_arete){
-        i++;
-    }
-    return (i<aretes.size());
-}
-
-bool Graphes::isAlreadyAdded(Sommets * p_sommet){
-    int i=0;
-    while (i<sommets.size() && sommets.at(i)->nom_sommet!=p_sommet->nom_sommet){
-        i++;
-    }
-    return (i<sommets.size());
 }
 
 Graphes::~Graphes() {

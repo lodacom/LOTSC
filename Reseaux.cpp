@@ -13,8 +13,6 @@
 
 Reseaux::Reseaux():Graphes(){}
 
-Reseaux::Reseaux(string p_nom,vector<Sommets*> p_sommets,vector<Aretes*> p_aretes):Graphes(p_nom,p_sommets,p_aretes){}
-
 string Reseaux::toString(){
 	return "Le réseau "+Graphes::nom_graphe+" est composé des noeuds:"+
     Graphes::listeSommets()+"et des liens: "+Graphes::listeAretes();

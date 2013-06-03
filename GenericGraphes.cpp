@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Lolo. All rights reserved.
 //
 
-#include "GenericGraphes.h"
-
 
 template <class G,class S,class A>
 GenericGraphes<G, S, A>::GenericGraphes(){
@@ -63,7 +61,7 @@ string GenericGraphes<G, S, A>::descriptionGraphe(){
 }
 
 template <class G,class S,class A>
-string GenericGraphes<G, S, A>::sommetLinkedTo(S p_sommet){
+string GenericGraphes<G, S, A>::sommetLinkedTo(S* p_sommet){
     string ret="";
     for (int i=0;i<p_sommet->aret_incidents.size();i++){
         if (p_sommet->aret_incidents.at(i)->somm1->nom_sommet!=p_sommet->nom_sommet){
@@ -76,7 +74,7 @@ string GenericGraphes<G, S, A>::sommetLinkedTo(S p_sommet){
 }
 
 template <class G,class S,class A>
-void GenericGraphes<G, S, A>::addArete(A p_arete){
+void GenericGraphes<G, S, A>::addArete(A* p_arete){
 	if (p_arete->getArete_dans()==NULL){
 		p_arete->setArete_dans(this);
 	}
@@ -92,7 +90,7 @@ void GenericGraphes<G, S, A>::addArete(A p_arete){
 }
 
 template <class G,class S,class A>
-void GenericGraphes<G, S, A>::addArete(A p_arete,S p_somm1,S p_somm2){
+void GenericGraphes<G, S, A>::addArete(A* p_arete,S* p_somm1,S* p_somm2){
 	if (p_arete->getArete_dans()==NULL){
         p_arete->setArete_dans(this);
     }
@@ -113,7 +111,7 @@ void GenericGraphes<G, S, A>::addArete(A p_arete,S p_somm1,S p_somm2){
 }
 
 template <class G,class S,class A>
-void GenericGraphes<G, S, A>::addSommet(S p_sommets,A p_aret) {
+void GenericGraphes<G, S, A>::addSommet(S* p_sommets,A* p_aret) {
     if (p_sommets->getSommet_dans()==NULL){
         p_sommets->setSommet_dans(this);
     }
@@ -122,7 +120,7 @@ void GenericGraphes<G, S, A>::addSommet(S p_sommets,A p_aret) {
 }
 
 template <class G,class S,class A>
-void GenericGraphes<G, S, A>::addSommet(S p_sommets) {
+void GenericGraphes<G, S, A>::addSommet(S* p_sommets) {
 	if (p_sommets->getSommet_dans()==NULL){
         p_sommets->setSommet_dans(this);
     }
@@ -130,7 +128,7 @@ void GenericGraphes<G, S, A>::addSommet(S p_sommets) {
 }
 
 template <class G,class S,class A>
-A GenericGraphes<G, S, A>::deleteArete(A p_arete){
+A* GenericGraphes<G, S, A>::deleteArete(A* p_arete){
 	int rech=rechercheArete(p_arete);
 	if (rech!=-1){
 		aretes.erase(aretes.begin()+rech);
@@ -145,7 +143,7 @@ A GenericGraphes<G, S, A>::deleteArete(A p_arete){
 }
 
 template <class G,class S,class A>
-S GenericGraphes<G, S, A>::deleteSommet(S p_sommet){
+S* GenericGraphes<G, S, A>::deleteSommet(S* p_sommet){
 	int rech=rechercheSommet(p_sommet);
 	if (rech!=-1){
 		sommets.erase(sommets.begin()+rech);
@@ -153,7 +151,7 @@ S GenericGraphes<G, S, A>::deleteSommet(S p_sommet){
 		//le sommet ne référence plus le graphe
 		//il faut maintenant supprimer toutes les aretes incidentes
 		//du graphe
-		typename vector<A>::iterator i = p_sommet->aret_incidents.begin();
+		typename vector<A*>::iterator i = p_sommet->aret_incidents.begin();
 		while (i!=p_sommet->aret_incidents.end()){
 			deleteArete(*i);
             i++;
@@ -165,7 +163,7 @@ S GenericGraphes<G, S, A>::deleteSommet(S p_sommet){
 }
 
 template <class G,class S,class A>
-int GenericGraphes<G, S, A>::rechercheArete(A p_arete){
+int GenericGraphes<G, S, A>::rechercheArete(A* p_arete){
 	int i=0;
 	while (i<aretes.size() && strcmp(aretes.at(i)->nom_arete.c_str(),p_arete->nom_arete.c_str())!=0){
 		i++;
@@ -178,7 +176,7 @@ int GenericGraphes<G, S, A>::rechercheArete(A p_arete){
 }
 
 template <class G,class S,class A>
-int GenericGraphes<G, S, A>::rechercheSommet(S p_sommet){
+int GenericGraphes<G, S, A>::rechercheSommet(S* p_sommet){
 	int i=0;
 	while (i<sommets.size() && strcmp(sommets.at(i)->nom_sommet.c_str(),p_sommet->nom_sommet.c_str())!=0){
 		i++;
@@ -191,7 +189,7 @@ int GenericGraphes<G, S, A>::rechercheSommet(S p_sommet){
 }
 
 template <class G,class S,class A>
-bool GenericGraphes<G, S, A>::isAlreadyAdded(A p_arete){
+bool GenericGraphes<G, S, A>::isAlreadyAdded(A* p_arete){
     int i=0;
     while (i<aretes.size() && aretes.at(i)->nom_arete!=p_arete->nom_arete){
         i++;
@@ -200,7 +198,7 @@ bool GenericGraphes<G, S, A>::isAlreadyAdded(A p_arete){
 }
 
 template <class G,class S,class A>
-bool GenericGraphes<G, S, A>::isAlreadyAdded(S p_sommet){
+bool GenericGraphes<G, S, A>::isAlreadyAdded(S* p_sommet){
     int i=0;
     while (i<sommets.size() && sommets.at(i)->nom_sommet!=p_sommet->nom_sommet){
         i++;

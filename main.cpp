@@ -14,8 +14,13 @@
 #include "Molecules.h"
 #include "Liaisons.h"
 #include "Atomes.h"
+#include "GenericGraphes.h"
+#include "GenericSommets.h"
+#include "GenericAretes.h"
 #include "ChimereException.h"
-
+#include "GenericReseaux.h"
+#include "GenericNoeuds.h"
+#include "GenericLiens.h"
 using namespace std;
 
 int main( int argc, const char* argv[] )
@@ -26,8 +31,10 @@ int main( int argc, const char* argv[] )
     Sommets* s3=new Sommets();
 	Aretes* a1=new Aretes();
     Aretes* a2=new Aretes();
+    Aretes* a21=new Aretes();
 	g->addArete(a1,s1,s2);
     g->addArete(a2,s2,s3);
+    g->addArete(a21,s1,s3);
 	cout << g->toString() << endl;
     cout << g->descriptionGraphe() << endl;
     
@@ -43,5 +50,15 @@ int main( int argc, const char* argv[] )
     cout << "......................................................" << endl;
     cout << m->toString() << endl;
     cout << m->descriptionGraphe() << endl;
+    
+    GenericReseaux* gr=new GenericReseaux();
+    GenericNoeuds* gn=new GenericNoeuds();
+    GenericNoeuds* gn2=new GenericNoeuds();
+    GenericLiens* gl=new GenericLiens();
+    
+    gr->addArete(gl, gn, gn2);
+    cout << "......................................................" << endl;
+    cout << gr->toString() << endl;
+    cout << gr->descriptionGraphe() << endl;
 	return 0;
 }

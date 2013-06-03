@@ -17,12 +17,11 @@ using namespace std;
 class Graphes {
 public:
 	string nom_graphe;
-	vector<Sommets*> sommets;
-	vector<Aretes*> aretes;
+	set<Sommets*> sommets;
+	set<Aretes*> aretes;
 	static int num;
 //.......................................................
 	Graphes();
-	Graphes(string,vector<Sommets*>,vector<Aretes*>);
 	string toString();
     string descriptionGraphe();
 	void createSommet();
@@ -38,10 +37,8 @@ protected:
 	string listeSommets();
 	string listeAretes();
 private:
-	int rechercheSommet(Sommets*);
-	int rechercheArete(Aretes*);
-    bool isAlreadyAdded(Aretes*);
-    bool isAlreadyAdded(Sommets*);
+    set<Sommets*>::iterator itS;
+    set<Aretes*>::iterator itA;
     string sommetLinkedTo(Sommets*);
 };
 

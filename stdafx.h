@@ -7,7 +7,8 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
+//#include <vector>
 #include <exception>
 #include <sstream>
+#include <set>
 // TODO: faites référence ici aux en-têtes supplémentaires nécessaires au programme

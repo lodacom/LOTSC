@@ -18,7 +18,8 @@ class Sommets {
 public:
     string nom_sommet;
 	Graphes* sommet_dans;
-	vector<Aretes*> aret_incidents;
+	set<Aretes*> aret_incidents;
+    set<Aretes*>::iterator itAS;
 	static int num;
 //.......................................
 	Sommets();

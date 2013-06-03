@@ -17,11 +17,9 @@ using namespace std;
 
 class Reseaux: public Graphes{
 public:
-	vector<Noeuds*> sommets;
-	vector<Liens*> aretes;
+
     //................................................
 	Reseaux();
-	Reseaux(string,vector<Sommets*>,vector<Aretes*>);
     string toString();
 	void createSommet();
 	void createArete(Sommets*,Sommets*);

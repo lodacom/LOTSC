@@ -17,7 +17,7 @@ Sommets::Sommets() {
     s << "S" << num;
 	nom_sommet=s.str();
     sommet_dans=NULL;
-	aret_incidents=vector<Aretes*>();
+	aret_incidents=set<Aretes*>();
 }
     
 Sommets::Sommets(Graphes* p_sommet_dans){
@@ -26,7 +26,7 @@ Sommets::Sommets(Graphes* p_sommet_dans){
     s << "S" << num;
 	nom_sommet=s.str();
     setSommet_dans(p_sommet_dans);
-	aret_incidents=vector<Aretes*>();
+	aret_incidents=set<Aretes*>();
 }
 
 string Sommets::toString(){
@@ -34,7 +34,7 @@ string Sommets::toString(){
 }
 
 void Sommets::addArete(Aretes* p_arete){
-	aret_incidents.push_back(p_arete);
+	aret_incidents.insert(p_arete);
 }
 
 void Sommets::addArete(Aretes* p_arete,Sommets* p_somm2){

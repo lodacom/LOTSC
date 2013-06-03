@@ -7,14 +7,16 @@
 //
 #include "GenericSommets.h"
 #include "GenericReseaux.h"
+//#include "Decorator.h"
 
 #ifndef __LOTSC__GenericNoeuds__
 #define __LOTSC__GenericNoeuds__
 
+
 class GenericNoeuds:public GenericSommets<GenericReseaux,GenericNoeuds,GenericLiens>{
 public:
     GenericNoeuds();
-    GenericNoeuds(GenericReseaux*);
+    //GenericNoeuds(GenericReseaux*);
     void createArete(GenericNoeuds*);
     void addArete(GenericLiens*);
     virtual ~GenericNoeuds();

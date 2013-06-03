@@ -14,8 +14,6 @@
 
 Molecules::Molecules():Graphes(){}
 
-Molecules::Molecules(string p_nom,vector<Sommets*> p_sommets,vector<Aretes*> p_aretes):Graphes(p_nom,p_sommets,p_aretes){}
-
 string Molecules::toString(){
 	return "La molecule "+Graphes::nom_graphe+" est compose des atomes:"+
 		Graphes::listeSommets()+"et des liaisons: "+Graphes::listeAretes();	

@@ -7,6 +7,7 @@
 //
 #include "stdafx.h"
 #include "GenericGraphes.h"
+//#include "Decorator.h"
 class GenericNoeuds;
 class GenericLiens;
 using namespace std;
@@ -16,8 +17,7 @@ using namespace std;
 
 class GenericReseaux: public GenericGraphes<GenericReseaux,GenericNoeuds,GenericLiens>{
 public:
-	vector<GenericNoeuds*> sommets;
-	vector<GenericLiens*> aretes;
+
     //................................................
 	GenericReseaux();
     string toString();
